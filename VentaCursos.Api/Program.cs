@@ -4,6 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Registramos el servicio como Singleton para que se mantenga la misma instancia para todas peticiones 
+builder.Services.AddSingleton<ICourseService, CourseService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
