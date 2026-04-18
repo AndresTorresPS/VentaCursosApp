@@ -4,7 +4,10 @@ namespace VentaCursos.Api.Services;
 
 public interface ICourseService
 {
-    IEnumerable<Course> GetAll();
+    // Métodos CRUD
+    Course Create(Course course);
     Course? GetById(string id);
-    void Create(Course course);
+    IEnumerable<Course> GetAll();
+    Course Update(string id, Course course);
+    bool Delete(string id); 
 }

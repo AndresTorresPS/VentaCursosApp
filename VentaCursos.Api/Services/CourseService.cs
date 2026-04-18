@@ -17,10 +17,11 @@ public class CourseService : ICourseService
 
     public Course? GetById(string id) => _courses.FirstOrDefault(c => c.Id == id);
 
-    public void Create(Course course) 
+    public Course Create(Course course) 
     {
         course.Id = GenerateUniqueHexId();
         _courses.Add(course);
+        return course;
     }
 
     // Método auxiliar para generar un ID hexadecimal único de 6 caracteres (como un color)
