@@ -24,6 +24,27 @@ public class CourseService : ICourseService
         return course;
     }
 
+    public Course Update(string id, Course course)
+    {
+        var existing = GetById(id) ?? throw new KeyNotFoundException($"Course not found: {id}");
+        existing.Title = course.Title;
+        existing.Description = course.Description;
+        existing.Price = course.Price;
+        existing.Author = course.Author;
+        return existing;
+    }
+
+    public bool Delete(string id)
+    {
+        var course = GetById(id);
+        if (course is null)
+        {
+            return false;
+        }
+
+        return _courses.Remove(course);
+    }
+
     // Método auxiliar para generar un ID hexadecimal único de 6 caracteres (como un color)
     private string GenerateUniqueHexId()
     {
@@ -35,7 +56,7 @@ public class CourseService : ICourseService
             RandomNumberGenerator.Fill(bytes);
             
             // Convierte a string hexadecimal en mayúsculas
-            newId = BitConverter.ToString(bytes).Replace("-", "").ToUpper();
+            newId = BitConverter.ToString(bytes).Replace("-", "").ToUpperInvariant();
         }
         while (_courses.Any(c => c.Id == newId));  // Asegura unicidad
         
